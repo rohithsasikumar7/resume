@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohith - Resume</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --surface: #ffffff;
+            --surface-subtle: #f8fafc;
+            --border: #e2e8f0;
+            --border-dark: #1e293b;
+            --text-title: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+            --font-mono: ui-monospace, "SF Mono", "Menlo", monospace;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #cbd5e1;
+            color: var(--text-body);
+            line-height: 1.35;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Fixed single A4 sheet */
+        .page-wrapper {
+            width: 210mm;
+            height: 297mm;
+            max-height: 297mm;
+            background: var(--surface);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.8rem;
+            background: var(--surface-subtle);
+            border-bottom: 1.5px solid var(--border);
+            gap: 1.2rem;
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 0.15rem;
+        }
+
+        header h1 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .header-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-body);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        .avatar-container img {
+            width: 78px;
+            height: 78px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+        }
+
+        /* 2-Column Grid filling the full remaining A4 sheet */
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 64mm 1fr;
+            flex: 1;
+            height: calc(297mm - 105px);
+        }
+
+        aside {
+            background: #fafbfc;
+            border-right: 1.5px solid var(--border);
+            padding: 1.2rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        main {
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--text-title);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .section-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Sidebar Content */
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            font-size: 0.74rem;
+        }
+
+        .contact-list li {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-list .label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .contact-list a {
+            color: var(--text-title);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .edu-item h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-title);
+            line-height: 1.25;
+        }
+
+        .edu-item p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.1rem;
+        }
+
+        .skills-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .skill-category h4 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+            color: var(--text-body);
+        }
+
+        /* Main Column */
+        #summary p {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            color: var(--text-body);
+            text-align: justify;
+        }
+
+        .timeline-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 0.75rem;
+            border-left: 2px solid var(--border-dark);
+        }
+
+        .timeline-item h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-title);
+            line-height: 1.2;
+        }
+
+        .timeline-item .subtext {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+        }
+
+        .timeline-item p.desc {
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: var(--text-body);
+            margin-top: 0.15rem;
+        }
+
+        /* Projects Section */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 0.5rem 0.7rem;
+            background: var(--surface);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.4rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-card h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
+            padding: 0.05rem 0.35rem;
+            border-radius: 3px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .project-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .project-card li {
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: var(--text-body);
+            position: relative;
+            padding-left: 0.75rem;
+        }
+
+        .project-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        /* Print Controls */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                background: #fff;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 210mm;
+                height: 297mm;
+                overflow: hidden;
+            }
+
+            .page-wrapper {
+                box-shadow: none;
+                border: none;
+                width: 210mm;
+                height: 297mm;
+                max-height: 297mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <header>
+        <div class="header-content">
+            <p class="eyebrow">Curriculum Vitae</p>
+            <h1>ROHITH S</h1>
+            <p class="header-subtitle">Computer Science &amp; Engineering Undergraduate</p>
+        </div>
+        <div class="avatar-container">
+            <img src="images/IMG_6678 2.jpeg" alt="Portrait of Rohith S" width="78" height="78" loading="lazy">
+        </div>
+    </header>
+
+    <div class="resume-grid">
+        <!-- Sidebar -->
+        <aside>
+            <section id="contact">
+                <h3 class="section-label">Contact</h3>
+                <ul class="contact-list">
+                    <li>
+                        <span class="label">Roll Number</span>
+                        <span>25110137</span>
+                    </li>
+                    <li>
+                        <span class="label">Location</span>
+                        <span>Coimbatore, Tamil Nadu, IN</span>
+                    </li>
+                    <li>
+                        <span class="label">Email</span>
+                        <a href="mailto:rohithsasikumar07@gmail.com">rohith07@gmail.com</a>
+                    </li>
+                    <li>
+                        <span class="label">LinkedIn</span>
+                        <a href="https://www.linkedin.com/in/rohith-s-123456/" target="_blank">in/rohith-s</a>
+                    </li>
+                    <li>
+                        <span class="label">GitHub</span>
+                        <a href="https://github.com/rohithsasikumar7" target="_blank">github/rohithsasikumar7</a>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="education">
+                <h3 class="section-label">Education</h3>
+                <div class="edu-item">
+                    <h4>B.E. Computer Science &amp; Eng.</h4>
+                    <p>Rathinam Technical Campus</p>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h3 class="section-label">Technical Stack</h3>
+                <div class="skills-group">
+                    <div class="skill-category">
+                        <h4>Languages</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">C/C++</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Frontend &amp; Spatial</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Vite</span>
+                            <span class="skill-tag">Tailwind</span>
+                            <span class="skill-tag">Three.js</span>
+                            <span class="skill-tag">CesiumJS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Backend &amp; Cloud</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">FastAPI</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">Supabase</span>
+                            <span class="skill-tag">Firebase</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Hardware &amp; Edge</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">ESP32</span>
+                            <span class="skill-tag">ESP-NOW</span>
+                            <span class="skill-tag">MPU6050</span>
+                            <span class="skill-tag">Edge AI</span>
+                            <span class="skill-tag">Git</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <section id="summary">
+                <h3 class="section-label">Profile</h3>
+                <p>
+                    Computer Science undergraduate skilled in full-stack development, Edge AI, IoT systems, and spatial computing. Award-winning hackathon competitor experienced in architecting resilient hardware-software systems, interactive simulations, and low-latency mesh architectures.
+                </p>
+            </section>
+
+            <section id="honors">
+                <h3 class="section-label">Honors &amp; Awards</h3>
+                <ul class="timeline-list">
+                    <li class="timeline-item">
+                        <h4>1st Place / Winner — Gameathon / Game Jam</h4>
+                        <p class="subtext">National Level</p>
+                        <p class="desc">Awarded top honours for rapid conceptualization, mechanics, and deployment of a 2D game prototype.</p>
+                    </li>
+                    <li class="timeline-item">
+                        <h4>Domain Winner (E-Mobility) — E-Mobility HackFest 2026</h4>
+                        <p class="subtext">Sri Ramakrishna Institute of Technology (SRIT) • Team FENIX</p>
+                        <p class="desc">Secured 1st place in the E-Mobility track for engineering an innovative, viable mobility solution.</p>
+                    </li>
+                    <li class="timeline-item">
+                        <h4>Best Team Award — IDE Bootcamp</h4>
+                        <p class="subtext">Thiagarajar College of Engineering • May 2026</p>
+                    </li>
+                    <li class="timeline-item">
+                        <h4>Top 50 Finalist — HACKDAY 1.0</h4>
+                        <p class="subtext">National Innovation Hackathon • Sept 2026</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="projects">
+                <h3 class="section-label">Featured Projects</h3>
+                <div class="projects-list">
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h4>B.R.O.C.O.D.E. — 3D/4D Ocean Visualization Engine</h4>
+                            <span class="project-tag">SIH26067 • MoES</span>
+                        </div>
+                        <ul>
+                            <li>Engineered browser-native 4D visualization engine via <strong>CesiumJS</strong> and <strong>FastAPI</strong>.</li>
+                            <li>Implemented Python <strong>xarray</strong> micro-slicing pipelines to stream NetCDF4 ocean data over &lt;128 kbps links.</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h4>Smart RoadSOS — Highway Crash Detection Mesh</h4>
+                            <span class="project-tag">Edge IoT • Team Coglets</span>
+                        </div>
+                        <ul>
+                            <li>Built an edge IoT stud network via <strong>ESP32</strong> and peer-to-peer <strong>ESP-NOW</strong> detecting crashes in &lt;3 seconds.</li>
+                            <li>Applied spectral audio filtering and multi-node velocity tracking to suppress heavy freight false alarms.</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h4>Ganimi Kava — 3D Historical Tactical Simulation</h4>
+                            <span class="project-tag">SIH26208 • Web3D</span>
+                        </div>
+                        <ul>
+                            <li>Architected a browser-based 3D tactical simulation recreating the 1661 Battle of Umberkhind using <strong>Three.js</strong>.</li>
+                            <li>Implemented optimized scripted animation states, stealth mechanics, a tactical HUD, and timed trap sequences.</li>
+                        </ul>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
